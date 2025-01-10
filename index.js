@@ -51,18 +51,19 @@ router.get("/api/wx_openid", async (ctx) => {
 });
 
 // 获取公众号消息
-router.get("/getMsg", async (ctx) => {
-  ctx.body = {
-    Status: 200,
-    data: 'success',
-  };
-});
 
-// 获取公众号消息
-router.post("/getMsg", async (ctx) => {
+router.all("/getMsg", async (ctx) => {
+  const appid = ctx.request.headers['x-wx-from-appid'] || ''
+  const { ToUserName, FromUserName, MsgType, Content, CreateTime } = req.request.body
   ctx.body = {
     Status: 200,
-    data: 'success',
+    data: {
+      "ToUserName": ToUserName,
+      "FromUserName": FromUserName,
+      "CreateTime": CreateTime, // 整型，例如：1648014186
+      "MsgType": "text",
+      "Content": "文本消息"
+    }    
   };
 });
 
