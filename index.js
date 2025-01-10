@@ -58,6 +58,14 @@ router.get("/getMsg", async (ctx) => {
   };
 });
 
+// 获取公众号消息
+router.post("/getMsg", async (ctx) => {
+  ctx.body = {
+    Status: 200,
+    data: 'success',
+  };
+});
+
 const app = new Koa();
 app
   .use(logger())
