@@ -50,6 +50,13 @@ router.get("/api/wx_openid", async (ctx) => {
   }
 });
 
+// 获取公众号消息
+router.get("/getMsg", async (ctx) => {
+  ctx.body = {
+    data: 'success',
+  };
+});
+
 const app = new Koa();
 app
   .use(logger())
