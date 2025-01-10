@@ -53,6 +53,7 @@ router.get("/api/wx_openid", async (ctx) => {
 // 获取公众号消息
 router.get("/getMsg", async (ctx) => {
   ctx.body = {
+    Status: 200,
     data: 'success',
   };
 });
