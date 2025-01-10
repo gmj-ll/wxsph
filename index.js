@@ -54,7 +54,7 @@ router.get("/api/wx_openid", async (ctx) => {
 
 router.all("/getMsg", async (ctx) => {
   const appid = ctx.request.headers['x-wx-from-appid'] || ''
-  const { ToUserName, FromUserName, MsgType, Content, CreateTime } = req.request.body
+  const { ToUserName, FromUserName, MsgType, Content, CreateTime } = ctx.request.body
   ctx.body = {
     Status: 200,
     data: {
