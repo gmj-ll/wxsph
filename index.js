@@ -59,11 +59,11 @@ router.get("/api/wx_openid", async (ctx) => {
 router.all("/getMsg", async (ctx) => {
   const appid = ctx.request.headers['x-wx-from-appid'] || ''
   const { ToUserName, FromUserName, MsgType, Content, CreateTime } = ctx.request.body
-  console.log(ToUserName)
-  console.log(FromUserName)
-  console.log(MsgType)
-  console.log(Content)
-  console.log(CreateTime)
+  console.log('ToUserName:', ToUserName)
+  console.log('FromUserName:',FromUserName)
+  console.log('MsgType:', MsgType)
+  console.log('Content:', Content)
+  console.log('CreateTime:', CreateTime)
   // 生成魔术包
 //   const magicPacket = wol.createMagicPacket(targetMacAddress);
 
@@ -84,8 +84,8 @@ router.all("/getMsg", async (ctx) => {
 // });
 
   ctx.body = {
-    ToUserName,
-    FromUserName,
+    ToUserName: FromUserName,
+    FromUserName: ToUserName,
     CreateTime,
     MsgType,
     Content: "这是回复的消息" // 自定义回复内容
