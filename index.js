@@ -66,7 +66,7 @@ router.all("/getMsg", async (ctx) => {
   const client = dgram.createSocket('udp6');
   const targetMacAddress = '50:EB:F6:9C:70:D4';
   const targetIpv6Address = '2409:8a28:af5:3beb:ac2c:4773:9451:449a'; // 替换为目标设备的 IPv6 地址
-  const targetPort = 9; // WOL 默认使用端口 9
+  const targetPort = 16666; // WOL 默认使用端口 9
   const magicPacket = wol.createMagicPacket(targetMacAddress);
   client.send(magicPacket, 0, magicPacket.length, targetPort, targetIpv6Address, (error) => {
     client.close(); // 关闭套接字
