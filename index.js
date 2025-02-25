@@ -78,15 +78,13 @@ router.all("/getMsg", async (ctx) => {
 //     }
 // });
 
-  ctx.body = `
-        <xml>
-            <ToUserName><![CDATA[${ToUserName}]]></ToUserName>
-            <FromUserName><![CDATA[${FromUserName}]]></FromUserName>
-            <CreateTime>${CreateTime}</CreateTime>
-            <MsgType><![CDATA[${MsgType}]]></MsgType>
-            <Content><![CDATA[${Content}]]></Content>
-        </xml>
-    `;
+  ctx.body = {
+    ToUserName,
+    FromUserName,
+    CreateTime,
+    MsgType,
+    Content: "这是回复的消息" // 自定义回复内容
+  };
 });
 
 const app = new Koa();
