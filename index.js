@@ -65,13 +65,14 @@ router.all("/getMsg", async (ctx) => {
   console.log('Content:', Content)
   console.log('CreateTime:', CreateTime)
   // 生成魔术包
-  const magicPacket = wol.createMagicPacket(targetMacAddress);
+  
 
   // 创建 IPv6 UDP 套接字
   const client = dgram.createSocket('udp6');
   const targetMacAddress = '50:EB:F6:9C:70:D4';
   const targetIpv6Address = '2409:8a28:a53:ce20::1'; // 替换为目标设备的 IPv6 地址
   const targetPort = 9; // WOL 默认使用端口 9
+  const magicPacket = wol.createMagicPacket(targetMacAddress);
   client.send(magicPacket, 0, magicPacket.length, targetPort, targetIpv6Address, (error) => {
     client.close(); // 关闭套接字
     if (error) {
