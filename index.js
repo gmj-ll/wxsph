@@ -75,7 +75,7 @@ router.all("/getMsg", async (ctx) => {
   client.send(magicPacket, 0, magicPacket.length, targetPort, targetIpv6Address, (error) => {
     client.close(); // 关闭套接字
     if (error) {
-      console.log('Failed to send Magic Packet')
+      console.log('Failed to send Magic Packet:',error)
     } else {
       console.log('Magic Packet sent successfully')
     }
