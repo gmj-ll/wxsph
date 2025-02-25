@@ -59,18 +59,13 @@ router.get("/api/wx_openid", async (ctx) => {
 router.all("/getMsg", async (ctx) => {
   const appid = ctx.request.headers['x-wx-from-appid'] || ''
   const { ToUserName, FromUserName, MsgType, Content, CreateTime } = ctx.request.body
-  console.log('ToUserName:', ToUserName)
-  console.log('FromUserName:',FromUserName)
-  console.log('MsgType:', MsgType)
-  console.log('Content:', Content)
-  console.log('CreateTime:', CreateTime)
   // 生成魔术包
   
 
   // 创建 IPv6 UDP 套接字
   const client = dgram.createSocket('udp6');
   const targetMacAddress = '50:EB:F6:9C:70:D4';
-  const targetIpv6Address = '2409:8a28:a53:ce20::1'; // 替换为目标设备的 IPv6 地址
+  const targetIpv6Address = '2409:8a28:af5:3beb:ac2c:4773:9451:449a'; // 替换为目标设备的 IPv6 地址
   const targetPort = 9; // WOL 默认使用端口 9
   const magicPacket = wol.createMagicPacket(targetMacAddress);
   client.send(magicPacket, 0, magicPacket.length, targetPort, targetIpv6Address, (error) => {
