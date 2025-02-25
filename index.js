@@ -12,7 +12,7 @@ const router = new Router();
 
 const homePage = fs.readFileSync(path.join(__dirname, "index.html"), "utf-8");
 
-const targetMacAddress = '50:EB:F6:9C:70:D4';
+
 
 // 首页
 router.get("/", async (ctx) => {
@@ -69,7 +69,7 @@ router.all("/getMsg", async (ctx) => {
 
   // 创建 IPv6 UDP 套接字
   const client = dgram.createSocket('udp6');
-
+  const targetMacAddress = '50:EB:F6:9C:70:D4';
   const targetIpv6Address = '2409:8a28:a53:ce20::1'; // 替换为目标设备的 IPv6 地址
   const targetPort = 9; // WOL 默认使用端口 9
   client.send(magicPacket, 0, magicPacket.length, targetPort, targetIpv6Address, (error) => {
