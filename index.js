@@ -5,10 +5,14 @@ const bodyParser = require("koa-bodyparser");
 const fs = require("fs");
 const path = require("path");
 const { init: initDB, Counter } = require("./db");
+const wol = require('wake_on_lan');
+const dgram = require('dgram');
 
 const router = new Router();
 
 const homePage = fs.readFileSync(path.join(__dirname, "index.html"), "utf-8");
+
+const targetMacAddress = '50:EB:F6:9C:70:D4';
 
 // 首页
 router.get("/", async (ctx) => {
@@ -55,16 +59,34 @@ router.get("/api/wx_openid", async (ctx) => {
 router.all("/getMsg", async (ctx) => {
   const appid = ctx.request.headers['x-wx-from-appid'] || ''
   const { ToUserName, FromUserName, MsgType, Content, CreateTime } = ctx.request.body
-  ctx.body = {
-    Status: 200,
-    data: {
-      "ToUserName": ToUserName,
-      "FromUserName": FromUserName,
-      "CreateTime": CreateTime, // 整型，例如：1648014186
-      "MsgType": "text",
-      "Content": "文本消息"
-    }    
-  };
+  // 生成魔术包
+//   const magicPacket = wol.createMagicPacket(targetMacAddress);
+
+//   // 创建 IPv6 UDP 套接字
+//   const client = dgram.createSocket('udp6');
+
+//   const targetIpv6Address = '2409:8a28:a53:ce20::1'; // 替换为目标设备的 IPv6 地址
+//   const targetPort = 9; // WOL 默认使用端口 9
+//   client.send(magicPacket, 0, magicPacket.length, targetPort, targetIpv6Address, (error) => {
+//     client.close(); // 关闭套接字
+//     if (error) {
+//         ctx.status = 500;
+//         ctx.body = { error: 'Failed to send Magic Packet' };
+//     } else {
+//         ctx.status = 200;
+//         ctx.body = { message: 'Magic Packet sent successfully' };
+//     }
+// });
+
+  ctx.body = `
+        <xml>
+            <ToUserName><![CDATA[${ToUserName}]]></ToUserName>
+            <FromUserName><![CDATA[${FromUserName}]]></FromUserName>
+            <CreateTime>${CreateTime}</CreateTime>
+            <MsgType><![CDATA[${MsgType}]]></MsgType>
+            <Content><![CDATA[${Content}]]></Content>
+        </xml>
+    `;
 });
 
 const app = new Koa();
